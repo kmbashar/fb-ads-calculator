@@ -1657,7 +1657,17 @@ button, input, select, summary, a, .mode-option, .period-switch span {
   letter-spacing: -0.5px;
 }
 
-.footer-credit a {
+.footer-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-details p {
+  margin: 0;
+}
+
+.footer-details a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -1666,7 +1676,7 @@ button, input, select, summary, a, .mode-option, .period-switch span {
   text-underline-offset: 4px;
 }
 
-.footer-credit a:hover {
+.footer-details a:hover {
   color: var(--accent);
 }
 
