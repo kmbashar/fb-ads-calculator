@@ -56,3 +56,11 @@ Include the regenerated UI bundle when changing the menu source. Describe the ch
 ## License
 
 The project code is available under the [MIT License](LICENSE). Bundled dependencies retain their own licenses; see `currency-select.js.LEGAL.txt`. Published benchmark sources remain credited in the calculator; the project license does not grant rights to third-party source material or branding.
+
+## Hosting on Cloudflare Pages
+
+Use the Free plan with the provided `pages.dev` address. The site needs no Functions, database, or environment secrets.
+
+For a Git-connected Pages project, select `main`, set the build command to `npm run build`, and set the output directory to `dist`. Choose no framework preset. The build copies only the public website files into `dist`.
+
+For a direct upload, run `npm ci` and `npm run build`, then upload the `dist` directory to Pages. Direct Upload projects and Git-connected projects use different deployment workflows; choose Git integration when you want automatic deployment after pushes.
