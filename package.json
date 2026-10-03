@@ -1,0 +1,20 @@
+{
+  "name": "admath-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build:ui": "node scripts/build-ui.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "2.2.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "jsdom": "27.0.1"
+  }
+}

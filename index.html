@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A simple Facebook ads calculator that explains every step of your sales forecast."
+    />
+    <meta name="theme-color" content="#f7f7f8" />
+    <title>Facebook ads calculator</title>
+    <link rel="stylesheet" href="styles.css?v=11" />
+    <script src="benchmarks.js?v=4" defer></script>
+    <script src="interactions.js?v=4" defer></script>
+    <script src="currency-select.js?v=1" defer></script>
+    <script src="app.js?v=9" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator">Skip to calculator</a>
+
+    <main id="top" class="page-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-heading">
+          <h1 id="page-title">Facebook ads calculator</h1>
+          <a class="brand" href="#top" aria-label="Facebook ads calculator home">
+            <span class="brand-name">ad<span>math</span></span>
+          </a>
+        </div>
+      </section>
+
+      <section id="calculator" class="calculator" aria-label="Ad forecast calculator">
+        <div class="calculator-shell">
+          <div class="mode-card">
+            <div class="mode-toolbar">
+              <fieldset class="mode-options">
+                <legend class="visually-hidden">Choose a calculator</legend>
+                <label class="mode-option">
+                  <input type="radio" name="funnel-mode" value="one" checked />
+                  <span class="mode-option-content">
+                    <span class="mode-option-title"><span class="mode-title-full">One-step funnel</span><span class="mode-title-short" aria-hidden="true">One-step</span></span>
+                    <span class="mode-option-description visually-hidden">They leave their details, you contact them, and they may buy.</span>
+                  </span>
+                </label>
+                <label class="mode-option">
+                  <input type="radio" name="funnel-mode" value="two" />
+                  <span class="mode-option-content">
+                    <span class="mode-option-title"><span class="mode-title-full">Two-step funnel</span><span class="mode-title-short" aria-hidden="true">Two-step</span></span>
+                    <span class="mode-option-description visually-hidden">They leave their details, book a visit, and may buy after an appointment.</span>
+                  </span>
+                </label>
+                <label class="mode-option">
+                  <input type="radio" name="funnel-mode" value="commerce" />
+                  <span class="mode-option-content">
+                    <span class="mode-option-title"><span class="mode-title-full">E-commerce products</span><span class="mode-title-short" aria-hidden="true">E-commerce</span></span>
+                    <span class="mode-option-description visually-hidden">They click through to your store and may place an order.</span>
+                  </span>
+                </label>
+              </fieldset>
+
+              <details class="journey-guide">
+                <summary>Funnel explained</summary>
+                <ol id="journey" class="journey" aria-label="Selected customer journey"></ol>
+              </details>
+            </div>
+          </div>
+
+          <div class="workspace">
+            <aside id="results-panel" class="results-column" aria-labelledby="results-title">
+              <div class="results-topline">
+                <div class="forecast-heading">
+                  <h2 id="results-title" tabindex="-1">Forecast</h2>
+                  <button id="breakdown-toggle" class="breakdown-toggle" type="button" data-disclosure="breakdown-details" aria-controls="breakdown-content" aria-expanded="false" hidden>
+                    <span id="breakdown-toggle-label">View full breakdown</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                  </button>
+                </div>
+                <fieldset class="period-switch">
+                  <legend class="visually-hidden">Forecast period</legend>
+                  <label>
+                    <input type="radio" name="period" value="30" checked />
+                    <span>30 days</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="period" value="365" />
+                    <span>365 days</span>
+                  </label>
+                </fieldset>
+              </div>
+
+              <div id="results-content" aria-live="off"></div>
+              <p id="live-summary" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+
+              <details id="breakdown-details" class="breakdown-details" hidden>
+                <summary hidden>Full breakdown</summary>
+                <div id="breakdown-content" class="breakdown-content"></div>
+              </details>
+            </aside>
+
+            <div class="input-column">
+              <div class="input-heading">
+                <h2>Your campaign numbers</h2>
+                <div class="input-tools">
+                  <div class="currency-control">
+                    <label id="currency-label" for="currency-select">Currency</label>
+                    <select id="currency-select" name="currency" aria-describedby="currency-help">
+                      <option value="USD" selected>USD $</option>
+                      <option value="BDT">BDT ৳</option>
+                      <option value="AUD">AUD $</option>
+                      <option value="CAD">CAD $</option>
+                      <option value="GBP">GBP £</option>
+                      <option value="EUR">EUR €</option>
+                      <option value="INR">INR ₹</option>
+                    </select>
+                    <div id="currency-picker"></div>
+                  </div>
+                  <details class="currency-info">
+                    <summary aria-label="How currency works">?</summary>
+                    <p id="currency-help" class="currency-note">Changing currency relabels your amounts; it doesn’t convert them.</p>
+                  </details>
+                </div>
+              </div>
+
+              <p id="example-notice" class="example-notice" hidden></p>
+
+              <section id="panel-one" class="form-panel" aria-labelledby="title-one">
+                <h3 id="title-one" class="visually-hidden">Lead → contact → sale</h3>
+                <form id="form-one" novalidate>
+                  <div id="fields-one"></div>
+                </form>
+              </section>
+
+              <section id="panel-two" class="form-panel" aria-labelledby="title-two" hidden>
+                <h3 id="title-two" class="visually-hidden">Two-step forecast</h3>
+                <form id="form-two" novalidate>
+                  <div id="fields-two"></div>
+                </form>
+              </section>
+
+              <section id="panel-commerce" class="form-panel" aria-labelledby="title-commerce" hidden>
+                <h3 id="title-commerce" class="visually-hidden">Store clicks → orders</h3>
+                <form id="form-commerce" novalidate>
+                  <div id="fields-commerce"></div>
+                </form>
+              </section>
+
+              <details class="input-help">
+                <summary>
+                  <span>Examples and starting points</span>
+                  <span class="input-help-toggle" aria-hidden="true">＋</span>
+                </summary>
+                <div class="input-help-body">
+                  <div class="example-tools" aria-label="Get started">
+                    <button class="button-primary" type="button" data-action="load-example">Try the example (USD)</button>
+                    <button class="button-secondary" type="button" data-action="use-rates">Use example rates</button>
+                  </div>
+                  <p id="example-hint" class="example-hint">
+                    The optional USD example uses $50 per day and a $550 average sale, midway between $400 and $700. Its ad rates are just for practice. Adjust the sale amount to match the service your ad promotes.
+                  </p>
+
+                  <details class="starter-guide" id="starter-guide">
+                    <summary>
+                      <span>Find published averages</span>
+                      <span class="starter-chevron" aria-hidden="true">＋</span>
+                    </summary>
+                    <div class="starter-guide-body">
+                      <p class="starter-guide-intro">Choose a business type to see a few published averages. Use them as a first draft, then replace them with your own numbers when you can.</p>
+                      <div class="starter-controls">
+                        <label id="starter-market-wrap" class="starter-control">
+                          <span id="starter-market-label">Where are most of your customers?</span>
+                          <select id="starter-market" name="starter-market">
+                            <option value="US" selected>United States</option>
+                            <option value="other">Outside the United States</option>
+                          </select>
+                          <div id="starter-market-picker"></div>
+                        </label>
+                        <label id="starter-industry-control" class="starter-control" for="starter-industry">
+                          <span id="starter-industry-label">Business type</span>
+                          <select id="starter-industry" name="starter-industry">
+                            <option value="overall">General / not sure</option>
+                          </select>
+                          <div id="starter-industry-picker"></div>
+                        </label>
+                      </div>
+                      <p id="starter-source-note" class="starter-note"></p>
+                      <p id="currency-rate-note" class="starter-note starter-fx-note"></p>
+                      <div class="starter-actions">
+                        <button class="button-secondary" type="button" data-action="apply-benchmarks">Use available suggestions</button>
+                        <span id="starter-status" class="starter-status" role="status" aria-live="polite"></span>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+
+              <a class="mobile-result-link" href="#results-title">
+                <span>View my estimate</span>
+                <span aria-hidden="true">↑</span>
+              </a>
+
+              <div class="input-footer">
+                <button class="text-button" type="button" data-action="clear">Clear my numbers</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="page-footnote">
+          Estimates only. Actual results may vary. Revenue is not profit.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span class="footer-name">admath</span>
+      <p class="footer-credit">Built by <a href="https://airdokan.com" target="_blank" rel="noopener noreferrer">AIRDOKAN</a></p>
+    </footer>
+  </body>
+</html>
