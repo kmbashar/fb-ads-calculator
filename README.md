@@ -2,6 +2,8 @@
 
 Three beginner-friendly Facebook ads calculators built with plain HTML, CSS, and JavaScript.
 
+[Open the live calculator](https://fb-ads-calculator.pages.dev/).
+
 ## Open it
 
 Open `index.html` in a modern web browser. The bundled UI is included, so opening the calculator needs no package installation, build step, server, or account.
@@ -64,3 +66,13 @@ Use the Free plan with the provided `pages.dev` address. The site needs no Funct
 For a Git-connected Pages project, select `main`, set the build command to `npm run build`, and set the output directory to `dist`. Choose no framework preset. The build copies only the public website files into `dist`.
 
 For a direct upload, run `npm ci` and `npm run build`, then upload the `dist` directory to Pages. Direct Upload projects and Git-connected projects use different deployment workflows; choose Git integration when you want automatic deployment after pushes.
+
+The live `fb-ads-calculator` project currently uses Direct Upload. To publish an update with an authorized Cloudflare account:
+
+```sh
+npm run build
+npm test
+npx --yes wrangler@4 pages deploy dist --project-name fb-ads-calculator --branch main
+```
+
+Pushing to GitHub alone does not deploy this Direct Upload project.
